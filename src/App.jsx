@@ -1,13 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
-import './App.css'
+import "./App.css";
+import Launches from "./components/Launches";
+import Launch from "./components/Launch";
+import { Routes, Route } from "react-router-dom";
+import Navigation from "./components/Navigation";
+import Welcome from "./components/Welcome";
 
 function App() {
   const url = "https://api.spacexdata.com/v3/launches";
 
   const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([])
-  const [searchTerm, setSearchTerm] = useState('')
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,63 +21,42 @@ function App() {
       setData(jsonData);
     };
     fetchData();
-  }, [])
+  }, []);
 
   useEffect(() => {
-    const filtered = data.filter(launch => 
+    const filtered = data.filter((launch) =>
       launch.mission_name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    setFilteredData(filtered)
-  }, [searchTerm, data])
-  
+    );
+    setFilteredData(filtered);
+  }, [searchTerm, data]);
 
   return (
-    <div>
+    <div className="container">
       <h1>SpaceX Launches (V3)</h1>
-      <input
-        type="text"
-        placeholder="Search mission name..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        style={{ marginBottom: "1rem", padding: "0.5rem", width: "300px" }}
-      />
-      <table>
-        <thead>
-          <tr>
-            <td></td>
-            <td>Flight</td>
-            <td>Mission Name</td>
-            <td>Launch Date (UTC)</td>
-            <td>Details</td>
-            <td>Launch Site</td>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map((launch, index) => (
-            <tr key={index}>
-              <td>
-                {launch.links.mission_patch ? (
-                  <img
-                    src={launch.links.mission_patch}
-                    alt={`${launch.mission_name} patch`}
-                    style={{ width: "50px", height: "50px" }}
-                    className="zoom-image"
-                  />
-                ) : (
-                  "No patch"
-                )}
-              </td>
-              <td>{launch.flight_number}</td>
-              <td>{launch.mission_name}</td>
-              <td>{launch.launch_date_utc}</td>
-              <td>{launch.details}</td>
-              <td>{launch.launch_site.site_name_long}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+
+      <div className="container-nav-main">
+        <nav className="sidebar">
+          <Navigation />
+        </nav>
+        <main className="main">
+          <Routes>
+            <Route path="/" element={<Welcome />} />
+            <Route
+              path="/launches"
+              element={
+                <Launches
+                  searchTerm={searchTerm}
+                  filteredData={filteredData}
+                  setSearchTerm={setSearchTerm}
+                />
+              }
+            />
+            <Route path="/launches/:id" element={<Launch data={data} />}/>
+          </Routes>
+        </main>
+      </div>
     </div>
   );
 }
 
-export default App
+export default App;
