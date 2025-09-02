@@ -20,18 +20,18 @@ function Launches({ searchTerm, setSearchTerm, filteredData }) {
               <td>Mission Name</td>
               <td>Launch Date (UTC)</td>
               <td>Details</td>
-              <td>Launch Site</td>
+              <td>Launch Video</td>
             </tr>
           </thead>
           <tbody>
             {filteredData.map((launch, index) => (
               <tr key={index}>
                 <td>
-                  {launch.links.mission_patch ? (
+                  {launch.links.patch.large ? (
                     <Link to={`/launches/${launch.flight_number}`}>
                       <img
-                        src={launch.links.mission_patch}
-                        alt={`${launch.mission_name} patch`}
+                        src={launch.links.patch.large}
+                        alt={`${launch.name} patch`}
                         style={{ width: "50px", height: "50px" }}
                         className="zoom-image"
                       />
@@ -41,10 +41,14 @@ function Launches({ searchTerm, setSearchTerm, filteredData }) {
                   )}
                 </td>
                 <td>{launch.flight_number}</td>
-                <td>{launch.mission_name}</td>
-                <td>{launch.launch_date_utc}</td>
+                <td>{launch.name}</td>
+                <td>{launch.date_utc}</td>
                 <td>{launch.details}</td>
-                <td>{launch.launch_site.site_name_long}</td>
+                <td>
+                  <a href={launch.links.webcast} target="_blank">
+                    📹
+                  </a>
+                </td>
               </tr>
             ))}
           </tbody>

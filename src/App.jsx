@@ -8,7 +8,7 @@ import Navigation from "./components/Navigation";
 import Welcome from "./components/Welcome";
 
 function App() {
-  const url = "https://api.spacexdata.com/v3/launches";
+  const url = "https://api.spacexdata.com/latest/launches";
 
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -25,14 +25,14 @@ function App() {
 
   useEffect(() => {
     const filtered = data.filter((launch) =>
-      launch.mission_name.toLowerCase().includes(searchTerm.toLowerCase())
+      launch.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredData(filtered);
   }, [searchTerm, data]);
 
   return (
     <div className="container">
-      <h1>SpaceX Launches (V3)</h1>
+      <h1>SpaceX Launches</h1>
 
       <div className="container-nav-main">
         <nav className="sidebar">
