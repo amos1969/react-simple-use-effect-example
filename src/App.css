@@ -47,6 +47,7 @@ make the child components lay out using flex, vertically stacked in a column */
   overflow-y: auto;
   /* fix the sidebar to be 100 viewport minus the header */
   max-height: calc(100vh - 60px);
+  padding-bottom: 50px;
 }
 
 .blue {
