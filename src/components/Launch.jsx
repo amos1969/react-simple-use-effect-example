@@ -19,7 +19,7 @@ function Launch({ data }) {
       <p className="teenytiny heavier">{item.launch_date_utc}</p>
       <p>{item.details}</p>
       <p>
-        Launch site:{" "}
+        Launch site:
         <span className="heavier">{item.launch_site.site_name_long}</span>
       </p>
       <iframe
