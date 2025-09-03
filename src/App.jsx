@@ -6,6 +6,7 @@ import Launch from "./components/Launch";
 import { Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Welcome from "./components/Welcome";
+import Storage from "./components/Storage";
 
 const MyContext = createContext();
 
@@ -44,6 +45,7 @@ function App() {
           <MyContext.Provider value={ { data, searchTerm, filteredData, setSearchTerm } }>
             <Routes>
               <Route path="/" element={<Welcome />} />
+              <Route path="/storage" element={<Storage /> } />
               <Route path="/launches" element={<Launches /> } />
               <Route path="/launches/:id" element={<Launch />} />
             </Routes>

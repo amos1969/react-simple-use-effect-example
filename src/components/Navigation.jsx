@@ -10,6 +10,9 @@ function Navigation() {
           <li>
             <Link to="/launches">Launches</Link>
           </li>
+          <li>
+            <Link to="/storage">Storage</Link>
+          </li>
         </ul>
       </div>
     );
