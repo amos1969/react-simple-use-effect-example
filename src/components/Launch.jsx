@@ -1,9 +1,11 @@
 import { Link, useParams } from "react-router-dom";
+import { MyContext } from "../App";
+import { useContext } from "react";
 
-function Launch({ data }) {
+function Launch() {
   const { id } = useParams();
+  const { data } = useContext(MyContext);
   const item = data.find((x) => x.flight_number === Number(id));
-
 
   const getOrdinal = (day) => {
     // Can almost certainly be refactored to make it nicer
@@ -58,7 +60,6 @@ function Launch({ data }) {
       </p>
       <hr />
       <Link to="/launches">Back to Launches</Link>
-
     </>
   );
 }

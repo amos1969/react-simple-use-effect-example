@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 import "./App.css";
 import Launches from "./components/Launches";
@@ -6,6 +6,8 @@ import Launch from "./components/Launch";
 import { Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Welcome from "./components/Welcome";
+
+const MyContext = createContext();
 
 function App() {
   const url = "https://api.spacexdata.com/latest/launches";
@@ -39,24 +41,17 @@ function App() {
           <Navigation />
         </nav>
         <main className="main">
-          <Routes>
-            <Route path="/" element={<Welcome />} />
-            <Route
-              path="/launches"
-              element={
-                <Launches
-                  searchTerm={searchTerm}
-                  filteredData={filteredData}
-                  setSearchTerm={setSearchTerm}
-                />
-              }
-            />
-            <Route path="/launches/:id" element={<Launch data={data} />}/>
-          </Routes>
+          <MyContext.Provider value={ { data, searchTerm, filteredData, setSearchTerm } }>
+            <Routes>
+              <Route path="/" element={<Welcome />} />
+              <Route path="/launches" element={<Launches /> } />
+              <Route path="/launches/:id" element={<Launch />} />
+            </Routes>
+          </MyContext.Provider>
         </main>
       </div>
     </div>
   );
 }
 
-export default App;
+export { App, MyContext };

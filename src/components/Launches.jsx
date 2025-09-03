@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
+import { MyContext } from "../App";
+import { useContext } from "react";
 
-function Launches({ searchTerm, setSearchTerm, filteredData }) {
-
+function Launches() {
+    const { searchTerm, setSearchTerm, filteredData } = useContext(MyContext)
     return (
       <>
         <h2>View Launches</h2>
